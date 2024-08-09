@@ -18,6 +18,13 @@ body {
 }
 
 /* Hero */
+.hero {
+  min-height: 100vh;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-top: 6rem !important;
+}
+
 .hero::before {
   content: "";
   position: absolute;
@@ -30,13 +37,6 @@ body {
   background-position: top right;
   z-index: -1;
   background-repeat: no-repeat;
-}
-
-.hero {
-  min-height: 100vh;
-  flex-direction: column;
-  justify-content: space-between;
-  padding-top: 6rem !important;
 }
 
 .hero a {
@@ -80,7 +80,7 @@ body {
 }
 
 .bi-bookmark-fill {
-  color: #00adef;
+  color: var(--light-blue);
   font-size: 2rem;
 }
 
@@ -92,6 +92,11 @@ body {
 
 .about li {
   list-style: url(img/check-circle.svg);
+}
+
+/* Contact / Hubungi */
+.contact-section {
+  background-color: var(--light-blue);
 }
 
 @media (min-width: 992px) {
