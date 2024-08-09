@@ -104,14 +104,13 @@ body {
   list-style: url(img/check-circle.svg);
 }
 
-/* Contact / Hubungi */
-.contact-section {
-  background-color: var(--light-blue);
-}
-
 /* Sakip Publik */
 .sakip-publik {
   background-color: #f9f9fa;
+}
+
+.sakip-publik p {
+  font-size: 1rem;
 }
 
 .sakip-publik-box {
@@ -121,11 +120,43 @@ body {
   height: 25rem;
 }
 
+.sakip-publik-box i {
+  display: block;
+  margin: 0 auto;
+  font-size: 6rem;
+  text-align: center;
+  color: var(--light-blue);
+}
+
+.sakip-publik-box:hover h4 {
+  color: var(--light-blue);
+}
+
+.sakip-publik-summary {
+  background-color: #eee;
+}
+
+.sakip-publik-summary-box {
+  position: relative;
+  background-color: inherit;
+  height: 10rem;
+}
+
+.sakip-publik-summary-box .angka-summary {
+  font-size: 4rem;
+  color: var(--light-blue);
+}
+
+/* Contact / Hubungi */
+.contact-section {
+  background-color: var(--light-blue);
+}
+
 /* Media Queries */
 /* Extra xl */
 @media (max-width: 1400px) {
   .col-lg-3half {
-    width: 35%;
+    width: 40%;
     float: left;
   }
 }
