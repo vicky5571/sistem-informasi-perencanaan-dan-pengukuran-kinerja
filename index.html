@@ -18,6 +18,39 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+    <!-- Navbar Start -->
+    <nav class="navbar navbar-expand-lg shadow-sm fixed-top">
+      <div class="container-fluid px-5">
+        <a class="navbar-brand" href="#"><i class="bi bi-display"></i> E-Performance</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#beranda">Beranda</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#about">Sekapur Sirih</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Sakip Publik </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Perencanaan</a></li>
+                <li><a class="dropdown-item" href="#">Perjanjian</a></li>
+                <li><a class="dropdown-item" href="#">Pengukuran</a></li>
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#contact">Hubungi</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- Navbar End -->
+
+    <!-- Hero Start -->
     <section id="hero" class="hero w-100 h-100 p-5 mx-auto text-start d-flex">
       <main>
         <h1>Sistem Informasi <br />Perencanaan dan Pengukuran Kerja</h1>
@@ -48,6 +81,8 @@
         </div>
       </div>
     </section>
+    <!-- Hero End -->
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   </body>
 </html>
