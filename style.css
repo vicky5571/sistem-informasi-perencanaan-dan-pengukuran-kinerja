@@ -84,6 +84,16 @@ body {
   font-size: 2rem;
 }
 
+/* About */
+.about {
+  min-height: 100vh;
+  padding-top: 6rem;
+}
+
+.about li {
+  list-style: url(img/check-circle.svg);
+}
+
 @media (min-width: 992px) {
   .col-lg-5half {
     float: left;
