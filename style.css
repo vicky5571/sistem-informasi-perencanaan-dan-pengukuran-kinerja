@@ -1,0 +1,80 @@
+:root {
+  --light-blue: #00adef;
+}
+
+body {
+  font-size: 1.2rem;
+  font-family: "Work Sans", sans-serif;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url(img/coworking-pana.jpg);
+  background-size: 50rem;
+  background-position: top right;
+  z-index: -1;
+  background-repeat: no-repeat;
+}
+
+.hero {
+  min-height: 100vh;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.hero a {
+  background-color: var(--light-blue);
+  color: white;
+}
+
+.hero a:hover {
+  color: var(--light-blue);
+  background-color: white;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--light-blue);
+}
+
+.hero h1 {
+  color: #b3b3b3;
+}
+
+.container-fluid {
+  bottom: 0;
+}
+
+.col-sm-5half {
+  position: relative;
+  min-height: 1px;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.visi-misi {
+  background-color: #e7e7e7;
+  border-radius: 10px;
+}
+
+.visi-misi p,
+.visi-misi ul {
+  background-color: #fff;
+  list-style-type: none;
+  padding-left: 0;
+  margin-left: 0;
+}
+
+.bi-bookmark-fill {
+  color: #00adef;
+  font-size: 2rem;
+}
+
+@media (min-width: 992px) {
+  .col-lg-5half {
+    float: left;
+    width: 49%;
+  }
+}
