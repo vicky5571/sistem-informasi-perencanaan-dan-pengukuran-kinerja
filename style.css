@@ -66,6 +66,11 @@ body {
   padding-left: 15px;
 }
 
+.col-lg-3half {
+  float: left;
+  width: 22%;
+}
+
 .col-lg-5half {
   float: left;
   width: 49%;
@@ -104,11 +109,36 @@ body {
   background-color: var(--light-blue);
 }
 
+/* Sakip Publik */
+.sakip-publik {
+  background-color: #f9f9fa;
+}
+
+.sakip-publik-box {
+  position: relative;
+  background-color: #fff;
+  border-radius: 10px;
+  height: 25rem;
+}
+
 /* Media Queries */
+/* Extra xl */
+@media (max-width: 1400px) {
+  .col-lg-3half {
+    width: 35%;
+    float: left;
+  }
+}
+
 /* Laptop */
 @media (max-width: 992px) {
   html {
     font-size: 75%;
+  }
+
+  .col-lg-3half {
+    width: 28%;
+    float: left;
   }
 }
 
@@ -116,6 +146,11 @@ body {
 @media (max-width: 768px) {
   html {
     font-size: 65%;
+  }
+
+  .col-lg-3half {
+    width: 38%;
+    float: left;
   }
 
   .col-lg-5half {
