@@ -51,8 +51,9 @@ body {
   border: 1px solid var(--light-blue);
 }
 
-.hero h1 {
-  color: #b3b3b3;
+.hero h1,
+main h1 {
+  color: #5f687b;
 }
 
 .container-fluid {
@@ -150,6 +151,11 @@ body {
 /* Contact / Hubungi */
 .contact-section {
   background-color: var(--light-blue);
+}
+
+/* PERENCANAAN.PHP */
+.filter-form {
+  width: 10rem;
 }
 
 /* Media Queries */
