@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SP - Perencanaan</title>
+    <title>SP - Perjanjian</title>
 
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
@@ -52,7 +52,7 @@
 
     <main class="p-5">
       <div class="container text-center p-5 m-5">
-        <h1 class="m-4">SAKIP PUBLIK "PERENCANAAN"</h1>
+        <h1 class="m-4">SAKIP PUBLIK "PERJANJIAN"</h1>
 
         <!-- Filter Form -->
         <form method="GET" class="m-4 d-flex align-items-center">
@@ -70,14 +70,14 @@
 
         $query = "
                 SELECT 
-                    perencanaan.id, 
-                    perencanaan.unit_kerja,
-                    perencanaan.tahun
-                FROM perencanaan
+                    perjanjian.id, 
+                    perjanjian.unit_kerja,
+                    perjanjian.tahun
+                FROM perjanjian
             ";
 
         if ($tahun) {
-            $query .= " WHERE perencanaan.tahun = '$tahun'";
+            $query .= " WHERE perjanjian.tahun = '$tahun'";
         }
 
         $result = mysqli_query($mysqli, $query);
@@ -86,7 +86,7 @@
         echo "<tr>
                 <th>NO</th>
                 <th>UNIT KERJA</th>
-                <th>RENSTRA</th>
+                <th>PERKIN</th>
                 <th>RENJA/RKA/PK</th>
               </tr>";
 
