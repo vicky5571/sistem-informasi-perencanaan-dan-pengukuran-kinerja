@@ -55,18 +55,21 @@
         <h1 class="m-4">SAKIP PUBLIK "PENGUKURAN"</h1>
 
         <!-- Filter Form -->
-        <form method="GET" class="m-4 d-flex align-items-center">
-            <p class="my-4">Pilih tahun: </p>
-            <input type="number" name="tahun" class="form-control filter-form" placeholder="Filter by Tahun" value="<?php echo isset($_GET['tahun']) ? $_GET['tahun'] : ''; ?>">
-            <button type="submit" class="btn btn-primary">Filter</button>
-          
-        </form>
+        <!-- Filter Form -->
+<form method="GET" class="m-4 d-flex align-items-center">
+    <p class="my-4">Pilih tahun: </p>
+    <input type="number" name="tahun" class="form-control filter-form" placeholder="Filter by Tahun" value="<?php echo isset($_GET['tahun']) ? $_GET['tahun'] : ''; ?>">
+    <p class="my-4 mx-4">Pilih unit kerja: </p>
+    <input type="text" name="unit_kerja" class="form-control filter-form" placeholder="Filter by Unit Kerja" value="<?php echo isset($_GET['unit_kerja']) ? $_GET['unit_kerja'] : ''; ?>">
+    <button type="submit" class="btn btn-primary">Filter</button>
+</form>
 
         <?php 
         include_once("conn.php");
 
-        // Filter query based on 'tahun'
+        // Filter query based on 'tahun' and "unit_kerja
         $tahun = isset($_GET['tahun']) ? $_GET['tahun'] : '';
+        $unit_kerja = isset($_GET['unit_kerja']) ? $_GET['unit_kerja'] : '';
 
         $query = "
                 SELECT 
@@ -77,9 +80,13 @@
                 FROM pengukuran
             ";
 
-        if ($tahun) {
-            $query .= " WHERE pengukuran.tahun = '$tahun'";
-        }
+            if ($tahun && $unit_kerja) {
+              $query .= " WHERE pengukuran.tahun = '$tahun' AND pengukuran.unit_kerja = '$unit_kerja'";
+          } elseif ($tahun) {
+              $query .= " WHERE pengukuran.tahun = '$tahun'";
+          } elseif ($unit_kerja) {
+              $query .= " WHERE pengukuran.unit_kerja = '$unit_kerja'";
+          }
 
         $result = mysqli_query($mysqli, $query);
 
