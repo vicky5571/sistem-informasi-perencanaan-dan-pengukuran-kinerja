@@ -72,7 +72,8 @@
                 SELECT 
                     pengukuran.id, 
                     pengukuran.unit_kerja,
-                    pengukuran.tahun
+                    pengukuran.tahun,
+                    pengukuran.capaian_kinerja
                 FROM pengukuran
             ";
 
@@ -100,27 +101,53 @@
                 <th>65.00 s/d 74.99</th>
                 <th>75.00 s/d 89.99</th>
                 <th>90.00 s/d 99.99</th>
-             </tr>";
+            </tr>";
 
         $no = 1;
 
         while ($data = mysqli_fetch_array($result)) {
-          echo "<tr>";
-          echo "<td>" . $no . "</td>";
-          echo "<td>" . $data['unit_kerja'] . "</td>";
-          echo "<td>" . $data['capaian_kinerja'] . "</td>";
-          echo "<td class='text-center'>
-                  <a href='renstra.php?id=" . $data['id'] . "' class='btn btn-success'>
-                    <i class='bi bi-search'></i>
-                  </a>
-                </td>";
-          echo "<td class='text-center'>
-                  <a href='renja.php?id=" . $data['id'] . "' class='btn btn-primary'>
-                    <i class='bi bi-search'></i>
-                  </a>
-                </td>";
-          echo "</tr>";
-          $no++;
+            // Split the capaian_kinerja values by commas
+            $capaian_kinerja_values = explode(',', $data['capaian_kinerja']);
+
+            // Determine the number of rows to span
+            $rowspan = count($capaian_kinerja_values);
+
+            foreach ($capaian_kinerja_values as $index => $value) {
+                echo "<tr>";
+                
+                if ($index == 0) {
+                    // For the first row, display the No and Uraian columns with rowspan
+                    echo "<td rowspan='$rowspan'>" . $no . "</td>";
+                    echo "<td rowspan='$rowspan'>" . $data['unit_kerja'] . "</td>";
+                }
+
+                // Display the Capaian Kinerja value in each row
+                echo "<td>" . $value . "</td>";
+                echo "<td class='text-center'>
+                        <a href='renstra.php?id=" . $data['id'] . "' class='btn btn-secondary'>
+                          7
+                        </a>
+                      </td>";
+
+                // Add placeholder cells for "Tidak Tercapai" columns
+                echo "<td></td>"; // 00.00 s/d 49.99
+                echo "<td></td>"; // 50.00 s/d 64.99
+                echo "<td></td>"; // 65.00 s/d 74.99
+                echo "<td></td>"; // 75.00 s/d 89.99
+                echo "<td></td>"; // 90.00 s/d 99.99
+                    echo "<td>Tercapai 100%</td>";
+                    echo "<td>Melebihi Target</td>";
+                    echo "<td>
+                            <a href='renstra.php?id=" . $data['id'] . "' class='btn btn-info'>
+                            7
+                            </a>
+                          </td>";
+
+                
+                echo "</tr>";
+            }
+
+            $no++;
         }
 
         echo "</table>";
