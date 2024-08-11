@@ -73,8 +73,16 @@
                     }
                     ?>
                 </select>
-                <button type="submit" class="btn btn-primary mx-4">Filter</button>
+                
+                <button type="submit" id="submitFilter" class="btn btn-primary mx-4 submitFilter">Filter</button>
             </form>
+
+
+            <div class="alert alert-light <?php echo isset($_GET['tahun']) ? '' : 'd-none'; ?> form-alert" role="alert">
+              <h4 class="alert-heading">Pengukuran Tahun "<?php echo isset($_GET['tahun']) ? $_GET['tahun'] : ''; ?>"</h4>
+              <p>Catatan: Data masih dalam proses input dan verifikasi. Mohon maklum apabila ada data yang tidak tersedia.</p>
+            </div>
+
 
             <?php 
             // Filter query based on 'tahun' and "unit_kerja"
@@ -174,5 +182,22 @@
             ?>
         </div>
     </main>
+
+    <script>
+      const filterForm = document.querySelector("form");
+      const formAlert = document.querySelector(".form-alert");
+      const selectedYearElement = document.getElementById("selected-year");
+
+      // Set the selected year in the alert on page load
+      document.addEventListener("DOMContentLoaded", function() {
+          const selectedYear = filterForm.querySelector('input[name="tahun"]').value;
+          selectedYearElement.textContent = selectedYear ? selectedYear : "N/A";
+      });
+
+      filterForm.addEventListener("submit", function(event) {
+          // The PHP will handle showing the alert after the page reload
+      });
+    </script>
+
 </body>
 </html>
