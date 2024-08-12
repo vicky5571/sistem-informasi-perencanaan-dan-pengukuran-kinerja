@@ -96,6 +96,16 @@ main h1 {
 }
 
 /* Navbar Dashboard */
+
+.navbar-dashboard .navbar-toggler {
+  display: block !important;
+}
+
+.logo-navbar {
+  width: 70px;
+  font-size: 2rem;
+  color: #0663bf;
+}
 .profile {
   display: flex;
   align-items: center;
