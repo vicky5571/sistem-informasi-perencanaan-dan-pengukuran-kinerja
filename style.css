@@ -101,6 +101,10 @@ main h1 {
   display: block !important;
 }
 
+.navbar-dashboard .navbar-brand {
+  color: #0663bf;
+}
+
 .logo-navbar {
   width: 70px;
   font-size: 2rem;
@@ -145,6 +149,58 @@ main h1 {
 .profile-img i {
   font-size: 24px;
   color: var(--light-blue);
+}
+
+/* Hamburger Menu */
+.menu-toggle {
+  display: flex;
+  flex-direction: column;
+  height: 20px;
+  margin-left: 2rem;
+  justify-content: space-between;
+  position: relative;
+}
+
+.menu-toggle input {
+  position: absolute;
+  width: 40px;
+  height: 28px;
+  left: -6px;
+  top: -5px;
+  opacity: 0;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.menu-toggle span {
+  display: block;
+  width: 28px;
+  height: 3px;
+  background-color: #646f76;
+  border-radius: 3px;
+  transition: all 0.5s;
+}
+
+/* Hamburger Menu Animation dengan siblings ~*/
+.menu-toggle span:nth-child(2) {
+  transform-origin: 0 0;
+}
+
+.menu-toggle span:nth-child(4) {
+  transform-origin: 0 100%;
+}
+
+.menu-toggle input:checked ~ span:nth-child(2) {
+  transform: rotate(45deg) translate(-1px, -1px);
+}
+
+.menu-toggle input:checked ~ span:nth-child(4) {
+  transform: rotate(-45deg) translate(-1px, 0);
+}
+
+.menu-toggle input:checked ~ span:nth-child(3) {
+  transform: scale(0);
+  opacity: 0;
 }
 
 /* About */
@@ -219,7 +275,15 @@ main h1 {
 }
 .wrapper {
   display: flex;
+  height: 100vh;
+  padding-top: 4.2rem;
 }
+
+.wrapper .main {
+  background-color: #eff3f7;
+  min-width: 191.62vh;
+}
+
 #sidebar {
   width: 70px;
   min-width: 70px;
@@ -233,6 +297,14 @@ main h1 {
 #sidebar.expand {
   width: 260px;
   min-width: 260px;
+}
+
+.sidebar-item a {
+  text-decoration: none;
+}
+
+.sidebar-item:hover a {
+  color: #f4ec9c;
 }
 
 .toggle-btn {
@@ -263,7 +335,7 @@ main h1 {
 }
 
 .sidebar-nav {
-  padding: 2rem 0;
+  padding: 0;
   flex: 1 1 auto;
 }
 
@@ -278,7 +350,6 @@ a.sidebar-link {
 
 .sidebar-link i {
   font-size: 1.1rem;
-  margin-right: 0.75rem;
 }
 
 a.sidebar-link:hover {
@@ -323,6 +394,16 @@ a.sidebar-link:hover {
 #sidebar.expand .sidebar-link[data-bs-toggle="collapse"].collapsed::after {
   transform: rotate(45deg);
   transition: all 0.2s ease-out;
+}
+
+/* sidebar main / dashboard main */
+.wrapper .main .breadcrumb li a {
+  text-decoration: none;
+}
+
+.breadcrumb {
+  position: relative;
+  right: 0;
 }
 
 /* Media Queries */
