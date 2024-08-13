@@ -275,13 +275,15 @@ main h1 {
 }
 .wrapper {
   display: flex;
-  height: 100vh;
+  height: auto;
+  min-height: 100vh;
   padding-top: 4.2rem;
 }
 
 .wrapper .main {
   background-color: #eff3f7;
-  min-width: 191.62vh;
+  min-width: 94.3vw;
+  /* min-width: 191.62vh; */
 }
 
 #sidebar {
@@ -361,6 +363,11 @@ a.sidebar-link:hover {
   position: relative;
 }
 
+.sidebar-footer {
+  position: sticky;
+  bottom: 0;
+}
+
 #sidebar:not(.expand) .sidebar-item .sidebar-dropdown {
   position: absolute;
   top: 0;
@@ -406,7 +413,35 @@ a.sidebar-link:hover {
   right: 0;
 }
 
+/* Card */
+
+.card-title {
+  font-size: 70% !important;
+  color: #fff;
+  background-color: #559bdb;
+  height: 5rem;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-data {
+  font-size: 70% !important;
+  color: #000000;
+  background-color: #d4e0f0;
+  height: 4rem;
+  padding: 5px;
+}
+
 /* Media Queries */
+/* Extra Extra xl */
+@media (min-width: 1500px) {
+  .wrapper .main {
+    min-width: 96.15vw;
+  }
+}
+
 /* Extra xl */
 @media (max-width: 1400px) {
   .col-lg-3half {

@@ -24,20 +24,32 @@
   <body>
     <?php
       include_once('conn.php');
-      $query = "SELECT nama_satker, persentase FROM realisasi_satker";
-      $result = mysqli_query($mysqli, $query);
 
+      // Bar Chart Data
+      $query_bar = "SELECT nama_satker, persentase FROM realisasi_satker";
+      $result_bar = mysqli_query($mysqli, $query_bar);
       $nama_satker = [];
       $persentase = [];
-
-      while ($row = mysqli_fetch_assoc($result)) {
+      while ($row = mysqli_fetch_assoc($result_bar)) {
           $nama_satker[] = $row['nama_satker'];
           $persentase[] = $row['persentase'];
       }
-
       $nama_satker = json_encode($nama_satker);
       $persentase = json_encode($persentase);
+
+      // Line Chart Data
+      $query_line = "SELECT date, persentase FROM realisasi_satker_line";
+      $result_line = mysqli_query($mysqli, $query_line);
+      $dates = [];
+      $percentages = [];
+      while ($row = mysqli_fetch_assoc($result_line)) {
+          $dates[] = $row['date'];
+          $percentages[] = $row['persentase'];
+      }
+      $dates = json_encode($dates);
+      $percentages = json_encode($percentages);
     ?>
+
     
     <!-- Navbar Start -->
     <nav class="navbar navbar-dashboard bg-light navbar-expand-lg shadow-sm fixed-top">
@@ -149,10 +161,84 @@
 
         <div class="container">
           <div class="row">
+            <div class="col text-center">
+              <h2 class="fw-semibold">Data Pengukuran s.d. Juni 2023</h2>
+            </div>
+          </div>
+          <div class="row card-row">
+            <div class="col text-center">
+              <div class="card-title">
+                Jumlah Anggaran
+              </div>
+              <div class="card-data">
+                10.000.000.000
+              </div>
+            </div>
+            <div class="col text-center">
+              <div class="card-title">
+                Realisasi Anggaran (Kumulatif) s.d. Juni 2023
+              </div>
+              <div class="card-data">
+                5.225.000.000
+              </div>
+            </div>
+            <div class="col text-center">
+              <div class="card-title">
+                Tingkat Realisasi Anggaran (Kumulatif) s.d. Juni 2023
+              </div>
+              <div class="card-data">
+                52.25%
+              </div>
+            </div>
+            <div class="col text-center">
+              <div class="card-title">
+                Total Target Kegiatan (RAPK)
+              </div>
+              <div class="card-data">
+                1.100
+              </div>
+            </div>
+            <div class="col text-center">
+              <div class="card-title">
+                Jumlah Target Kegiatan (kumulatif) s.d. Juni 2023
+              </div>
+              <div class="card-data">
+                600
+              </div>
+            </div>
+            <div class="col text-center">
+              <div class="card-title">
+                Jumlah Realisasi Kegiatan (Kumulatif) s.d. Juni 2023
+              </div>
+              <div class="card-data">
+                550
+              </div>
+            </div>
+            <div class="col text-center">
+              <div class="card-title">
+                Tingkat Realisasi Total Target Kegiatan
+              </div>
+              <div class="card-data">
+                54.55%
+              </div>
+            </div>
+            <div class="col text-center">
+              <div class="card-title">
+                Tingkat Realisasi Target Kegiatan s.d. Juni 2023
+              </div>
+              <div class="card-data">
+                91.67%
+              </div>
+            </div>
+          </div>
+          <div class="row mt-4">
             <div class="col-md-8">
               <canvas id="percentageChart"></canvas>
             </div>
-          </div>
+            <div class="col-md-4">
+              <canvas id="lineChart"></canvas>
+            </div>
+          </div>         
         </div>
       </div>
     </div>
@@ -169,87 +255,163 @@
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+
     <script>
-var ctx = document.getElementById('percentageChart').getContext('2d');
-var chart = new Chart(ctx, {
-    type: 'bar',
-    data: {
+    var ctxBar = document.getElementById('percentageChart').getContext('2d');
+    new Chart(ctxBar, {
+      type: 'bar',
+      data: {
         labels: <?php echo $nama_satker; ?>,
         datasets: [{
-            label: '', // This will not be displayed in the legend
-            data: <?php echo $persentase; ?>,
-            backgroundColor: 'rgba(75, 192, 192, 0.2)',
-            borderColor: 'rgba(75, 192, 192, 1)',
-            borderWidth: 1
+          label: false,
+          data: <?php echo $persentase; ?>,
+          backgroundColor: 'rgba(75, 192, 192, 0.2)',
+          borderColor: 'rgba(75, 192, 192, 1)',
+          borderWidth: 1
         }]
-    },
-    options: {
+      },
+      options: {
         plugins: {
-            title: {
+          title: {
+            display: true,
+            text: 'Tingkat Realisasi Anggaran (Kumulatif) per Satker s.d. Bulan Juni 2023',
+            padding: { top: 10, bottom: 30 },
+            font: { size: 20, weight: 'bold' }
+          },
+          legend: { display: false },
+          datalabels: {
                 display: true,
-                text: 'Performance Statistics', // Change this to your desired title
-                padding: {
-                    top: 10,
-                    bottom: 30
+                align: 'top',
+                anchor: 'end',
+                color: 'black',
+                formatter: function(value, context) {
+                    return value + '%';
                 },
                 font: {
-                    size: 16,
                     weight: 'bold'
-                }
-            },
-            legend: {
-                display: true, // Display the legend
-                labels: {
-                    filter: function(item, chart) {
-                        // Hide the label from the legend
-                        return false;
-                    }
                 }
             }
         },
         scales: {
-            x: {
-                ticks: {
-                    callback: function(value, index, values) {
-                        var label = this.getLabelForValue(value);
-                        var words = label.split(" ");
-                        var wrappedLabel = [];
-
-                        var line = "";
-                        words.forEach(function(word) {
-                            if (line.length + word.length > 10) {
-                                wrappedLabel.push(line);
-                                line = word;
-                            } else {
-                                if (line.length > 0) {
-                                    line += " ";
-                                }
-                                line += word;
-                            }
-                        });
-                        wrappedLabel.push(line);
-
-                        return wrappedLabel;
-                    },
-                    maxRotation: 0,
-                    minRotation: 0
-                }
-            },
-            y: {
-                beginAtZero: true,
-                min: 0,
-                max: 100, // Set max to 100
-                ticks: {
-                    callback: function(value) {
-                        return value + '%';
+          x: {
+            ticks: {
+              callback: function(value) {
+                var label = this.getLabelForValue(value);
+                var words = label.split(" ");
+                var wrappedLabel = [];
+                var line = "";
+                words.forEach(function(word) {
+                  if (line.length + word.length > 10) {
+                    wrappedLabel.push(line);
+                    line = word;
+                  } else {
+                    if (line.length > 0) {
+                      line += " ";
                     }
-                }
+                    line += word;
+                  }
+                });
+                wrappedLabel.push(line);
+                return wrappedLabel;
+              },
+              maxRotation: 0,
+              minRotation: 0
             }
+          },
+          y: {
+            beginAtZero: true,
+            min: 0,
+            max: 100,
+            ticks: { callback: function(value) { return value + '%'; } }
+          }
         }
-    }
-});
+      },
+      plugins: [ChartDataLabels]
+    });
 
+    var ctxLine = document.getElementById('lineChart').getContext('2d');
+    ctxLine.canvas.height = 200;
+    new Chart(ctxLine, {
+      type: 'line',
+      data: {
+        labels: <?php echo $dates; ?>, // Treating dates as categorical data
+        datasets: [{
+          label: 'Tingkat Realisasi Anggaran Kumulatif',
+          data: <?php echo $percentages; ?>,
+          backgroundColor: 'rgba(54, 162, 235, 0)',
+          borderColor: '#ed7d31',
+          borderWidth: 3,
+          pointRadius: 0, // Remove Dot each data
+          fill: true,
+          // pointStyle: 'line' // Remove this line, as it's not a valid option here
+        }]
+      },
+      options: {
+        scales: {
+          x: {
+            type: 'category', // Using category scale for x-axis
+            offset: true,
+            title: {
+              display: false,
+              text: 'Date'
+            }
+          },
+          y: {
+            beginAtZero: true,
+            min: 0,
+            max: 100,
+            ticks: { callback: function(value) { return value + '%'; } },
+            title: {
+              display: false,
+              text: 'Percentage'
+            }
+          }
+        },
+        plugins: {
+          title: {
+            display: true,
+            text: 'Tingkat Realisasi Anggaran (Kumulatif) s.d. Bulan Juni 2023',
+            padding: { top: 10, bottom: 30 },
+            font: { size: 20, weight: 'bold' }
+          },
+          legend: { 
+            display: true,
+            position: 'bottom',
+            labels: {
+              usePointStyle: true, // Use point styles in legend
+              pointStyle: 'line', // Legend point style is line
+              generateLabels: function(chart) {
+                const original = Chart.defaults.plugins.legend.labels.generateLabels;
+                const labels = original.call(this, chart);
 
-    </script>
+                labels.forEach(label => {
+                  label.pointStyle = 'line'; // Set legend style to line
+                  label.borderColor = label.fillStyle; // Set line color to match the dataset color
+                  label.borderWidth = 3; // Line width
+                  label.boxWidth = 0; // Hide the default box
+                });
+
+                return labels;
+              }
+            }
+          },
+          datalabels: {
+            display: true,
+            align: 'top',
+            color: 'black',
+            formatter: function(value, context) {
+              return value + '%';
+            },
+            font: {
+              weight: 'bold'
+            }
+          }
+        }
+      },
+      plugins: [ChartDataLabels]
+    });
+
+  </script>
   </body>
 </html>
