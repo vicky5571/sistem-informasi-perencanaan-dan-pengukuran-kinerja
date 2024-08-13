@@ -149,7 +149,7 @@
 
         <div class="container">
           <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-8">
               <canvas id="percentageChart"></canvas>
             </div>
           </div>
@@ -170,32 +170,86 @@
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        var ctx = document.getElementById('percentageChart').getContext('2d');
-        var chart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: <?php echo $nama_satker; ?>,
-                datasets: [{
-                    label: 'Percentage',
-                    data: <?php echo $persentase; ?>,
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                    borderColor: 'rgba(75, 192, 192, 1)',
-                    borderWidth: 1
-                }]
+var ctx = document.getElementById('percentageChart').getContext('2d');
+var chart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: <?php echo $nama_satker; ?>,
+        datasets: [{
+            label: '', // This will not be displayed in the legend
+            data: <?php echo $persentase; ?>,
+            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            borderColor: 'rgba(75, 192, 192, 1)',
+            borderWidth: 1
+        }]
+    },
+    options: {
+        plugins: {
+            title: {
+                display: true,
+                text: 'Performance Statistics', // Change this to your desired title
+                padding: {
+                    top: 10,
+                    bottom: 30
+                },
+                font: {
+                    size: 16,
+                    weight: 'bold'
+                }
             },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        ticks: {
-                            callback: function(value) {
-                                return value + '%';
-                            }
-                        }
+            legend: {
+                display: true, // Display the legend
+                labels: {
+                    filter: function(item, chart) {
+                        // Hide the label from the legend
+                        return false;
                     }
                 }
             }
-        });
+        },
+        scales: {
+            x: {
+                ticks: {
+                    callback: function(value, index, values) {
+                        var label = this.getLabelForValue(value);
+                        var words = label.split(" ");
+                        var wrappedLabel = [];
+
+                        var line = "";
+                        words.forEach(function(word) {
+                            if (line.length + word.length > 10) {
+                                wrappedLabel.push(line);
+                                line = word;
+                            } else {
+                                if (line.length > 0) {
+                                    line += " ";
+                                }
+                                line += word;
+                            }
+                        });
+                        wrappedLabel.push(line);
+
+                        return wrappedLabel;
+                    },
+                    maxRotation: 0,
+                    minRotation: 0
+                }
+            },
+            y: {
+                beginAtZero: true,
+                min: 0,
+                max: 100, // Set max to 100
+                ticks: {
+                    callback: function(value) {
+                        return value + '%';
+                    }
+                }
+            }
+        }
+    }
+});
+
+
     </script>
   </body>
 </html>
