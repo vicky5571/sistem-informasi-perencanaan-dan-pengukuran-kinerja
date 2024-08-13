@@ -9,28 +9,28 @@
 
 <body>
     <?php
-// Ensure session is started only once
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
+        // Ensure session is started only once
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
 
-// Database connection parameters
-$databaseHost = 'localhost';
-$databaseName = 'sipuja';
-$databaseUsername = 'root';
-$databasePassword = '';
+        // Database connection parameters
+        $databaseHost = 'localhost';
+        $databaseName = 'sipuja';
+        $databaseUsername = 'root';
+        $databasePassword = '';
 
-// Create a new MySQLi connection
-$mysqli = new mysqli($databaseHost, $databaseUsername, $databasePassword, $databaseName);
+        // Create a new MySQLi connection
+        $mysqli = new mysqli($databaseHost, $databaseUsername, $databasePassword, $databaseName);
 
-// Check connection
-if ($mysqli->connect_error) {
-    die("Connection failed: " . $mysqli->connect_error);
-}
+        // Check connection
+        if ($mysqli->connect_error) {
+            die("Connection failed: " . $mysqli->connect_error);
+        }
 
-// Set default timezone
-date_default_timezone_set('Asia/Jakarta');
-?>
+        // Set default timezone
+        date_default_timezone_set('Asia/Jakarta');
+    ?>
 
 </body>
 

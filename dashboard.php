@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <title>Document</title>
 
     <!-- Bootstrap -->
@@ -21,6 +22,23 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+    <?php
+      include_once('conn.php');
+      $query = "SELECT nama_satker, persentase FROM realisasi_satker";
+      $result = mysqli_query($mysqli, $query);
+
+      $nama_satker = [];
+      $persentase = [];
+
+      while ($row = mysqli_fetch_assoc($result)) {
+          $nama_satker[] = $row['nama_satker'];
+          $persentase[] = $row['persentase'];
+      }
+
+      $nama_satker = json_encode($nama_satker);
+      $persentase = json_encode($persentase);
+    ?>
+    
     <!-- Navbar Start -->
     <nav class="navbar navbar-dashboard bg-light navbar-expand-lg shadow-sm fixed-top">
       <div class="container-fluid pe-5 ps-0">
@@ -128,9 +146,19 @@
             </ol>
           </nav>
         </div>
+
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6">
+              <canvas id="percentageChart"></canvas>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <!-- Sidenav End -->
+
+
 
     <script>
       const hamBurger = document.querySelector(".menu-toggle");
@@ -138,6 +166,36 @@
       hamBurger.addEventListener("click", function () {
         document.querySelector("#sidebar").classList.toggle("expand");
       });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        var ctx = document.getElementById('percentageChart').getContext('2d');
+        var chart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: <?php echo $nama_satker; ?>,
+                datasets: [{
+                    label: 'Percentage',
+                    data: <?php echo $persentase; ?>,
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return value + '%';
+                            }
+                        }
+                    }
+                }
+            }
+        });
     </script>
   </body>
 </html>
