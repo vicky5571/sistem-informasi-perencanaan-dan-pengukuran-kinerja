@@ -37,8 +37,8 @@
                   <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Sakip Publik </a>
                   <ul class="dropdown-menu">
                     <li><a class="dropdown-item" href="perencanaan.php">Perencanaan</a></li>
-                    <li><a class="dropdown-item" href="#">Perjanjian</a></li>
-                    <li><a class="dropdown-item" href="#">Pengukuran</a></li>
+                    <li><a class="dropdown-item" href="perjanjian.php">Perjanjian</a></li>
+                    <li><a class="dropdown-item" href="pengukuran.php">Pengukuran</a></li>
                   </ul>
                 </li>
                 <li class="nav-item">
